@@ -1,0 +1,15 @@
+.pokemon-image {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+  
+  img {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+ion-card {
+  max-width: 500px;
+  margin: 20px auto;
+}

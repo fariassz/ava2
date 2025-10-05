@@ -1,0 +1,78 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Voltar"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Pokédex</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Buscar Pokémon</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-input 
+          label="Nome do Pokémon" 
+          label-placement="stacked"
+          [(ngModel)]="pokemonName" 
+          placeholder="Ex: pikachu, charmander, eevee">
+        </ion-input>
+      </ion-item>
+
+      <ion-button 
+        expand="block" 
+        (click)="searchPokemon()" 
+        [disabled]="loading || !pokemonName">
+        <ion-spinner *ngIf="loading"></ion-spinner>
+        Buscar Pokémon
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+<ion-back-button 
+  defaultHref="/"
+  text="Voltar"
+  icon="arrow-back"
+  color="primary">
+</ion-back-button>
+  <!-- pokemon pedido-->
+  <ion-card *ngIf="pokemon">
+    <ion-card-header>
+      <ion-card-title>{{ pokemon.name | titlecase }} #{{ pokemon.id }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div class="pokemon-image">
+        <img [src]="pokemon.sprites.front_default" [alt]="pokemon.name">
+      </div>
+
+      <ion-list>
+        <ion-item>
+          <ion-label><strong>Tipo:</strong> {{ getPokemonTypes() }}</ion-label>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label><strong>Altura:</strong> {{ pokemon.height / 10 }} m</ion-label>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label><strong>Peso:</strong> {{ pokemon.weight / 10 }} kg</ion-label>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label><strong>Habilidades:</strong> {{ getPokemonAbilities() }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- msg de erro -->
+  <ion-card *ngIf="error" color="danger">
+    <ion-card-content>
+      Pokémon não encontrado! Verifique o nome.
+    </ion-card-content>
+  </ion-card>
+</ion-content>
